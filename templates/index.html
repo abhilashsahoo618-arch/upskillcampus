@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WorldLens - Global News Verifier</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div><h1>WorldLens</h1><p>Global News Verifier</p></div>
+  <button id="load-events-btn" class="secondary-btn">Load Latest Events</button>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <span class="badge">News verification + global awareness</span>
+    <h2>Check a news claim before you trust or share it.</h2>
+    <p>Paste news text or upload an image/video. WorldLens extracts visible text, searches configured verification services, and shows supporting evidence.</p>
+  </section>
+
+  <section class="card">
+    <h3>Verify News</h3>
+    <form id="verify-form">
+      <label for="news-text">News text or claim</label>
+      <textarea id="news-text" name="text" rows="7" placeholder="Paste a headline, post, or news paragraph..."></textarea>
+      <label for="media-file">Or upload image/video</label>
+      <input id="media-file" name="file" type="file" accept="image/*,video/*">
+      <div class="row">
+        <button type="submit" class="primary-btn">Analyze News</button>
+        <button type="button" id="clear-btn" class="ghost-btn">Clear</button>
+      </div>
+    </form>
+    <div id="status" class="status hidden"></div>
+  </section>
+
+  <section id="result-section" class="card hidden">
+    <div class="result-header">
+      <div><p class="muted">Assessment</p><h3 id="verdict">-</h3></div>
+      <div id="confidence-badge" class="confidence">-</div>
+    </div>
+
+    <div class="score-wrap">
+      <div class="score-label"><span>Heuristic quality score</span><strong id="score-value">0/100</strong></div>
+      <div class="score-bar"><div id="score-fill" class="score-fill"></div></div>
+    </div>
+
+    <div class="grid-2">
+      <div><h4>Positive Signals</h4><ul id="positive-list"></ul></div>
+      <div><h4>Red Flags</h4><ul id="red-list"></ul></div>
+    </div>
+
+    <div id="extracted-box" class="evidence-box hidden">
+      <h4>Extracted Text</h4><p id="extracted-text"></p>
+    </div>
+
+    <h4>Fact-check Matches</h4><div id="fact-checks" class="stack"></div>
+    <h4>Related News Coverage</h4><div id="news-matches" class="stack"></div>
+    <p id="explanation" class="notice"></p>
+  </section>
+
+  <section id="events-section" class="card hidden">
+    <h3>Latest Events</h3>
+    <div id="events-grid" class="events-grid"></div>
+    <p id="events-warning" class="notice hidden"></p>
+  </section>
+</main>
+
+<footer><p>WorldLens is an educational verification assistant. Check primary sources before important decisions.</p></footer>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
